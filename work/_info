@@ -1,0 +1,90 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Kartik/Desktop/ZOHO_PROJECT
+vi2c_master_bit_ctrl
+Z1 !s110 1774796965
+!i10b 1
+!s100 06WHPIQagehFo616GHUJ00
+IT=bz]hZNAA5d[V8[PQTUh0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1774790894
+8i2c_master_bit_ctrl.v
+Fi2c_master_bit_ctrl.v
+L0 4
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1774796965.000000
+Z5 !s107 timescale.v|tb_i2c_master.v|i2c_master_top.v|i2c_master_defines.v|i2c_master_byte_ctrl.v|i2c_master_bit_ctrl.v|
+Z6 !s90 -reportprogress|300|i2c_master_bit_ctrl.v|i2c_master_byte_ctrl.v|i2c_master_defines.v|i2c_master_top.v|tb_i2c_master.v|timescale.v|
+!i113 1
+Z7 tCvgOpt 0
+vi2c_master_byte_ctrl
+R1
+!i10b 1
+!s100 8PWkQ]6ejkKzczzd`9E`81
+IIHR5aW2[F62]z9NR99L4n3
+R2
+R0
+w1774790887
+8i2c_master_byte_ctrl.v
+Fi2c_master_byte_ctrl.v
+L0 4
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vi2c_master_top
+R1
+!i10b 1
+!s100 5UTND>Gi:Zh@cCfZ99oA51
+IoU4^]Q72NM1hQMm]7;A@83
+R2
+R0
+w1774792726
+8i2c_master_top.v
+Fi2c_master_top.v
+L0 4
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vtb_i2c_master
+R1
+!i10b 1
+!s100 3d[;MGjNJDJUMCTc3NoZa1
+Ig1]b?kob=jR_@OWZ0EZYb0
+R2
+R0
+w1774796731
+8tb_i2c_master.v
+Ftb_i2c_master.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7

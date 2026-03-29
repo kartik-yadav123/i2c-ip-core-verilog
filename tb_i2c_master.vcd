@@ -1,0 +1,746 @@
+$date
+	Sun Mar 29 19:13:43 2026
+$end
+$version
+	ModelSim Version 10.5b
+$end
+$timescale
+	1ps
+$end
+
+$scope module tb_i2c_master $end
+$var parameter 3 ! PRERlo $end
+$var parameter 3 " PRERhi $end
+$var parameter 3 # CTR $end
+$var parameter 3 $ TXR $end
+$var parameter 3 % CR $end
+$var parameter 3 & SR $end
+$var parameter 3 ' RXR $end
+$var parameter 8 ( STA $end
+$var parameter 8 ) STO $end
+$var parameter 8 * RD $end
+$var parameter 8 + WR $end
+$var parameter 8 , NACK $end
+$var parameter 8 - IACK $end
+$var reg 1 . wb_clk_i $end
+$var reg 1 / wb_rst_i $end
+$var reg 1 0 arst_i $end
+$var reg 3 1 wb_adr_i [2:0] $end
+$var reg 8 2 wb_dat_i [7:0] $end
+$var wire 1 3 wb_dat_o [7] $end
+$var wire 1 4 wb_dat_o [6] $end
+$var wire 1 5 wb_dat_o [5] $end
+$var wire 1 6 wb_dat_o [4] $end
+$var wire 1 7 wb_dat_o [3] $end
+$var wire 1 8 wb_dat_o [2] $end
+$var wire 1 9 wb_dat_o [1] $end
+$var wire 1 : wb_dat_o [0] $end
+$var reg 1 ; wb_we_i $end
+$var reg 1 < wb_stb_i $end
+$var reg 1 = wb_cyc_i $end
+$var wire 1 > wb_ack_o $end
+$var wire 1 ? wb_inta_o $end
+$var wire 1 @ scl_pad_o $end
+$var wire 1 A scl_padoen_o $end
+$var wire 1 B sda_pad_o $end
+$var wire 1 C sda_padoen_o $end
+$var wire 1 D scl_pad_i $end
+$var reg 1 E sda_slave_oe $end
+$var wire 1 F sda_master_val $end
+$var wire 1 G sda_pad_i $end
+$var integer 32 H slv_bit $end
+$var reg 8 I rd_data [7:0] $end
+
+$scope task wb_write $end
+$var reg 3 J addr [2:0] $end
+$var reg 8 K data [7:0] $end
+$upscope $end
+
+$scope task wb_read $end
+$var reg 3 L addr [2:0] $end
+$var reg 8 M data [7:0] $end
+$upscope $end
+
+$scope task wait_irq $end
+$var integer 32 N to $end
+$var reg 8 O s [7:0] $end
+$upscope $end
+
+$scope module dut $end
+$var parameter 1 P ARST_LVL $end
+$var wire 1 Q wb_clk_i $end
+$var wire 1 R wb_rst_i $end
+$var wire 1 S arst_i $end
+$var wire 1 T wb_adr_i [2] $end
+$var wire 1 U wb_adr_i [1] $end
+$var wire 1 V wb_adr_i [0] $end
+$var wire 1 W wb_dat_i [7] $end
+$var wire 1 X wb_dat_i [6] $end
+$var wire 1 Y wb_dat_i [5] $end
+$var wire 1 Z wb_dat_i [4] $end
+$var wire 1 [ wb_dat_i [3] $end
+$var wire 1 \ wb_dat_i [2] $end
+$var wire 1 ] wb_dat_i [1] $end
+$var wire 1 ^ wb_dat_i [0] $end
+$var reg 8 _ wb_dat_o [7:0] $end
+$var wire 1 ` wb_we_i $end
+$var wire 1 a wb_stb_i $end
+$var wire 1 b wb_cyc_i $end
+$var reg 1 c wb_ack_o $end
+$var reg 1 d wb_inta_o $end
+$var wire 1 D scl_pad_i $end
+$var wire 1 @ scl_pad_o $end
+$var wire 1 A scl_padoen_o $end
+$var wire 1 G sda_pad_i $end
+$var wire 1 B sda_pad_o $end
+$var wire 1 C sda_padoen_o $end
+$var reg 16 e prer [15:0] $end
+$var reg 8 f ctr [7:0] $end
+$var reg 8 g txr [7:0] $end
+$var wire 1 h rxr [7] $end
+$var wire 1 i rxr [6] $end
+$var wire 1 j rxr [5] $end
+$var wire 1 k rxr [4] $end
+$var wire 1 l rxr [3] $end
+$var wire 1 m rxr [2] $end
+$var wire 1 n rxr [1] $end
+$var wire 1 o rxr [0] $end
+$var reg 8 p cr [7:0] $end
+$var wire 1 q sr [7] $end
+$var wire 1 r sr [6] $end
+$var wire 1 s sr [5] $end
+$var wire 1 t sr [4] $end
+$var wire 1 u sr [3] $end
+$var wire 1 v sr [2] $end
+$var wire 1 w sr [1] $end
+$var wire 1 x sr [0] $end
+$var wire 1 y done $end
+$var wire 1 z core_en $end
+$var wire 1 { ien $end
+$var wire 1 | irxack $end
+$var reg 1 } rxack $end
+$var reg 1 ~ tip $end
+$var reg 1 !! irq_flag $end
+$var wire 1 "! i2c_busy $end
+$var wire 1 #! i2c_al $end
+$var reg 1 $! al $end
+$var wire 1 %! rst_i $end
+$var wire 1 &! wb_wacc $end
+$var wire 1 '! sta $end
+$var wire 1 (! sto $end
+$var wire 1 )! rd $end
+$var wire 1 *! wr $end
+$var wire 1 +! ack $end
+$var wire 1 ,! iack $end
+
+$scope module byte_controller $end
+$var parameter 5 -! ST_IDLE $end
+$var parameter 5 .! ST_START $end
+$var parameter 5 /! ST_READ $end
+$var parameter 5 0! ST_WRITE $end
+$var parameter 5 1! ST_ACK $end
+$var parameter 5 2! ST_STOP $end
+$var wire 1 Q clk $end
+$var wire 1 R rst $end
+$var wire 1 %! nReset $end
+$var wire 1 z ena $end
+$var wire 1 3! clk_cnt [15] $end
+$var wire 1 4! clk_cnt [14] $end
+$var wire 1 5! clk_cnt [13] $end
+$var wire 1 6! clk_cnt [12] $end
+$var wire 1 7! clk_cnt [11] $end
+$var wire 1 8! clk_cnt [10] $end
+$var wire 1 9! clk_cnt [9] $end
+$var wire 1 :! clk_cnt [8] $end
+$var wire 1 ;! clk_cnt [7] $end
+$var wire 1 <! clk_cnt [6] $end
+$var wire 1 =! clk_cnt [5] $end
+$var wire 1 >! clk_cnt [4] $end
+$var wire 1 ?! clk_cnt [3] $end
+$var wire 1 @! clk_cnt [2] $end
+$var wire 1 A! clk_cnt [1] $end
+$var wire 1 B! clk_cnt [0] $end
+$var wire 1 '! start $end
+$var wire 1 (! stop $end
+$var wire 1 )! read $end
+$var wire 1 *! write $end
+$var wire 1 +! ack_in $end
+$var wire 1 C! din [7] $end
+$var wire 1 D! din [6] $end
+$var wire 1 E! din [5] $end
+$var wire 1 F! din [4] $end
+$var wire 1 G! din [3] $end
+$var wire 1 H! din [2] $end
+$var wire 1 I! din [1] $end
+$var wire 1 J! din [0] $end
+$var reg 1 K! cmd_ack $end
+$var reg 1 L! ack_out $end
+$var wire 1 "! i2c_busy $end
+$var wire 1 #! i2c_al $end
+$var wire 1 h dout [7] $end
+$var wire 1 i dout [6] $end
+$var wire 1 j dout [5] $end
+$var wire 1 k dout [4] $end
+$var wire 1 l dout [3] $end
+$var wire 1 m dout [2] $end
+$var wire 1 n dout [1] $end
+$var wire 1 o dout [0] $end
+$var wire 1 D scl_i $end
+$var wire 1 @ scl_o $end
+$var wire 1 A scl_oen $end
+$var wire 1 G sda_i $end
+$var wire 1 B sda_o $end
+$var wire 1 C sda_oen $end
+$var reg 4 M! core_cmd [3:0] $end
+$var reg 1 N! core_txd $end
+$var wire 1 O! core_ack $end
+$var wire 1 P! core_rxd $end
+$var reg 8 Q! sr [7:0] $end
+$var reg 1 R! shift $end
+$var reg 1 S! ld $end
+$var wire 1 T! go $end
+$var reg 3 U! dcnt [2:0] $end
+$var wire 1 V! cnt_done $end
+$var reg 5 W! c_state [4:0] $end
+
+$scope module bit_controller $end
+$var parameter 18 X! idle $end
+$var parameter 18 Y! start_a $end
+$var parameter 18 Z! start_b $end
+$var parameter 18 [! start_c $end
+$var parameter 18 \! start_d $end
+$var parameter 18 ]! start_e $end
+$var parameter 18 ^! stop_a $end
+$var parameter 18 _! stop_b $end
+$var parameter 18 `! stop_c $end
+$var parameter 18 a! stop_d $end
+$var parameter 18 b! rd_a $end
+$var parameter 18 c! rd_b $end
+$var parameter 18 d! rd_c $end
+$var parameter 18 e! rd_d $end
+$var parameter 18 f! wr_a $end
+$var parameter 18 g! wr_b $end
+$var parameter 18 h! wr_c $end
+$var parameter 18 i! wr_d $end
+$var wire 1 Q clk $end
+$var wire 1 R rst $end
+$var wire 1 %! nReset $end
+$var wire 1 z ena $end
+$var wire 1 3! clk_cnt [15] $end
+$var wire 1 4! clk_cnt [14] $end
+$var wire 1 5! clk_cnt [13] $end
+$var wire 1 6! clk_cnt [12] $end
+$var wire 1 7! clk_cnt [11] $end
+$var wire 1 8! clk_cnt [10] $end
+$var wire 1 9! clk_cnt [9] $end
+$var wire 1 :! clk_cnt [8] $end
+$var wire 1 ;! clk_cnt [7] $end
+$var wire 1 <! clk_cnt [6] $end
+$var wire 1 =! clk_cnt [5] $end
+$var wire 1 >! clk_cnt [4] $end
+$var wire 1 ?! clk_cnt [3] $end
+$var wire 1 @! clk_cnt [2] $end
+$var wire 1 A! clk_cnt [1] $end
+$var wire 1 B! clk_cnt [0] $end
+$var wire 1 j! cmd [3] $end
+$var wire 1 k! cmd [2] $end
+$var wire 1 l! cmd [1] $end
+$var wire 1 m! cmd [0] $end
+$var reg 1 n! cmd_ack $end
+$var reg 1 o! busy $end
+$var reg 1 p! al $end
+$var wire 1 q! din $end
+$var reg 1 r! dout $end
+$var wire 1 D scl_i $end
+$var wire 1 @ scl_o $end
+$var reg 1 s! scl_oen $end
+$var wire 1 G sda_i $end
+$var wire 1 B sda_o $end
+$var reg 1 t! sda_oen $end
+$var reg 2 u! cSCL [1:0] $end
+$var reg 2 v! cSDA [1:0] $end
+$var reg 3 w! fSCL [2:0] $end
+$var reg 3 x! fSDA [2:0] $end
+$var reg 1 y! sSCL $end
+$var reg 1 z! sSDA $end
+$var reg 1 {! dSCL $end
+$var reg 1 |! dSDA $end
+$var reg 1 }! dscl_oen $end
+$var reg 1 ~! sda_chk $end
+$var reg 1 !" clk_en $end
+$var reg 1 "" slave_wait $end
+$var reg 16 #" cnt [15:0] $end
+$var reg 14 $" filter_cnt [13:0] $end
+$var reg 18 %" c_state [17:0] $end
+$var wire 1 &" scl_sync $end
+$var reg 1 '" sta_condition $end
+$var reg 1 (" sto_condition $end
+$var reg 1 )" cmd_stop $end
+$upscope $end
+$upscope $end
+$var wire 1 Q wb_clk_i $end
+$var wire 1 R wb_rst_i $end
+$var wire 1 S arst_i $end
+$var wire 1 T wb_adr_i [2] $end
+$var wire 1 U wb_adr_i [1] $end
+$var wire 1 V wb_adr_i [0] $end
+$var wire 1 W wb_dat_i [7] $end
+$var wire 1 X wb_dat_i [6] $end
+$var wire 1 Y wb_dat_i [5] $end
+$var wire 1 Z wb_dat_i [4] $end
+$var wire 1 [ wb_dat_i [3] $end
+$var wire 1 \ wb_dat_i [2] $end
+$var wire 1 ] wb_dat_i [1] $end
+$var wire 1 ^ wb_dat_i [0] $end
+$var wire 1 ` wb_we_i $end
+$var wire 1 a wb_stb_i $end
+$var wire 1 b wb_cyc_i $end
+$var wire 1 D scl_pad_i $end
+$var wire 1 @ scl_pad_o $end
+$var wire 1 A scl_padoen_o $end
+$var wire 1 G sda_pad_i $end
+$var wire 1 B sda_pad_o $end
+$var wire 1 C sda_padoen_o $end
+$var wire 1 h rxr [7] $end
+$var wire 1 i rxr [6] $end
+$var wire 1 j rxr [5] $end
+$var wire 1 k rxr [4] $end
+$var wire 1 l rxr [3] $end
+$var wire 1 m rxr [2] $end
+$var wire 1 n rxr [1] $end
+$var wire 1 o rxr [0] $end
+$var wire 1 q sr [7] $end
+$var wire 1 r sr [6] $end
+$var wire 1 s sr [5] $end
+$var wire 1 t sr [4] $end
+$var wire 1 u sr [3] $end
+$var wire 1 v sr [2] $end
+$var wire 1 w sr [1] $end
+$var wire 1 x sr [0] $end
+$var wire 1 y done $end
+$var wire 1 z core_en $end
+$var wire 1 { ien $end
+$var wire 1 | irxack $end
+$var wire 1 "! i2c_busy $end
+$var wire 1 #! i2c_al $end
+$var wire 1 %! rst_i $end
+$var wire 1 &! wb_wacc $end
+$var wire 1 '! sta $end
+$var wire 1 (! sto $end
+$var wire 1 )! rd $end
+$var wire 1 *! wr $end
+$var wire 1 +! ack $end
+$var wire 1 ,! iack $end
+
+$scope module byte_controller $end
+$var wire 1 Q clk $end
+$var wire 1 R rst $end
+$var wire 1 %! nReset $end
+$var wire 1 z ena $end
+$var wire 1 3! clk_cnt [15] $end
+$var wire 1 4! clk_cnt [14] $end
+$var wire 1 5! clk_cnt [13] $end
+$var wire 1 6! clk_cnt [12] $end
+$var wire 1 7! clk_cnt [11] $end
+$var wire 1 8! clk_cnt [10] $end
+$var wire 1 9! clk_cnt [9] $end
+$var wire 1 :! clk_cnt [8] $end
+$var wire 1 ;! clk_cnt [7] $end
+$var wire 1 <! clk_cnt [6] $end
+$var wire 1 =! clk_cnt [5] $end
+$var wire 1 >! clk_cnt [4] $end
+$var wire 1 ?! clk_cnt [3] $end
+$var wire 1 @! clk_cnt [2] $end
+$var wire 1 A! clk_cnt [1] $end
+$var wire 1 B! clk_cnt [0] $end
+$var wire 1 '! start $end
+$var wire 1 (! stop $end
+$var wire 1 )! read $end
+$var wire 1 *! write $end
+$var wire 1 +! ack_in $end
+$var wire 1 C! din [7] $end
+$var wire 1 D! din [6] $end
+$var wire 1 E! din [5] $end
+$var wire 1 F! din [4] $end
+$var wire 1 G! din [3] $end
+$var wire 1 H! din [2] $end
+$var wire 1 I! din [1] $end
+$var wire 1 J! din [0] $end
+$var wire 1 "! i2c_busy $end
+$var wire 1 #! i2c_al $end
+$var wire 1 h dout [7] $end
+$var wire 1 i dout [6] $end
+$var wire 1 j dout [5] $end
+$var wire 1 k dout [4] $end
+$var wire 1 l dout [3] $end
+$var wire 1 m dout [2] $end
+$var wire 1 n dout [1] $end
+$var wire 1 o dout [0] $end
+$var wire 1 D scl_i $end
+$var wire 1 @ scl_o $end
+$var wire 1 A scl_oen $end
+$var wire 1 G sda_i $end
+$var wire 1 B sda_o $end
+$var wire 1 C sda_oen $end
+$var wire 1 O! core_ack $end
+$var wire 1 P! core_rxd $end
+$var wire 1 T! go $end
+$var wire 1 V! cnt_done $end
+
+$scope module bit_controller $end
+$var wire 1 Q clk $end
+$var wire 1 R rst $end
+$var wire 1 %! nReset $end
+$var wire 1 z ena $end
+$var wire 1 3! clk_cnt [15] $end
+$var wire 1 4! clk_cnt [14] $end
+$var wire 1 5! clk_cnt [13] $end
+$var wire 1 6! clk_cnt [12] $end
+$var wire 1 7! clk_cnt [11] $end
+$var wire 1 8! clk_cnt [10] $end
+$var wire 1 9! clk_cnt [9] $end
+$var wire 1 :! clk_cnt [8] $end
+$var wire 1 ;! clk_cnt [7] $end
+$var wire 1 <! clk_cnt [6] $end
+$var wire 1 =! clk_cnt [5] $end
+$var wire 1 >! clk_cnt [4] $end
+$var wire 1 ?! clk_cnt [3] $end
+$var wire 1 @! clk_cnt [2] $end
+$var wire 1 A! clk_cnt [1] $end
+$var wire 1 B! clk_cnt [0] $end
+$var wire 1 j! cmd [3] $end
+$var wire 1 k! cmd [2] $end
+$var wire 1 l! cmd [1] $end
+$var wire 1 m! cmd [0] $end
+$var wire 1 q! din $end
+$var wire 1 D scl_i $end
+$var wire 1 @ scl_o $end
+$var wire 1 G sda_i $end
+$var wire 1 B sda_o $end
+$var wire 1 &" scl_sync $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0.
+1/
+00
+b0 1
+b0 2
+0;
+0<
+0=
+0E
+bx _
+xc
+xd
+bx e
+bx f
+bx g
+bx p
+x}
+x~
+x!!
+x$!
+xK!
+xL!
+bx M!
+xN!
+bx Q!
+xR!
+xS!
+bx U!
+xn!
+xo!
+xp!
+xr!
+xs!
+xt!
+bx u!
+bx v!
+b111 w!
+b111 x!
+xy!
+xz!
+x{!
+x|!
+x}!
+x~!
+x!"
+0""
+bx #"
+b0 $"
+bx %"
+x'"
+x("
+x)"
+bx W!
+bx J
+bx K
+bx L
+bx M
+bx O
+bx I
+b0 !
+b1 "
+b10 #
+b11 $
+b100 %
+b100 &
+b11 '
+b10000000 (
+b1000000 )
+b100000 *
+b10000 +
+b1000 ,
+b1 -
+b0 P
+b0 -!
+b1 .!
+b10 /!
+b100 0!
+b1000 1!
+b10000 2!
+b0 X!
+b1 Y!
+b10 Z!
+b100 [!
+b1000 \!
+b10000 ]!
+b100000 ^!
+b1000000 _!
+b10000000 `!
+b100000000 a!
+b1000000000 b!
+b10000000000 c!
+b100000000000 d!
+b1000000000000 e!
+b10000000000000 f!
+b100000000000000 g!
+b1000000000000000 h!
+b10000000000000000 i!
+bx N
+b0 H
+x:
+x9
+x8
+x7
+x6
+x5
+x4
+x3
+x>
+x?
+0@
+xA
+0B
+xC
+xD
+xF
+xG
+xo
+xn
+xm
+xl
+xk
+xj
+xi
+xh
+xx
+xw
+0v
+0u
+0t
+xs
+xr
+xq
+xy
+xz
+x{
+x|
+x"!
+x#!
+0%!
+0&!
+x'!
+x(!
+x)!
+x*!
+x+!
+x,!
+xO!
+xP!
+xT!
+xV!
+x&"
+0b
+0a
+0`
+0^
+0]
+0\
+0[
+0Z
+0Y
+0X
+0W
+0V
+0U
+0T
+0S
+1R
+0Q
+xJ!
+xI!
+xH!
+xG!
+xF!
+xE!
+xD!
+xC!
+xB!
+xA!
+x@!
+x?!
+x>!
+x=!
+x<!
+x;!
+x:!
+x9!
+x8!
+x7!
+x6!
+x5!
+x4!
+x3!
+xq!
+xm!
+xl!
+xk!
+xj!
+$end
+#1000
+b1111111111111111 e
+b0 f
+b0 g
+b0 p
+b0 #"
+1!"
+b0 u!
+b0 v!
+1y!
+1z!
+1{!
+1|!
+0'"
+0("
+0o!
+0)"
+0p!
+b0 %"
+0n!
+1s!
+1t!
+0~!
+b0 Q!
+b0 U!
+b0 M!
+0N!
+0R!
+0S!
+0K!
+b0 W!
+0L!
+0$!
+0}
+0~
+0!!
+0d
+0&"
+0'!
+0(!
+0)!
+0*!
+0+!
+0,!
+0z
+0{
+0T!
+0"!
+0#!
+0O!
+1A
+1C
+1V!
+0m!
+0l!
+0k!
+0j!
+0o
+0n
+0m
+0l
+0k
+0j
+0i
+0h
+0J!
+0I!
+0H!
+0G!
+0F!
+0E!
+0D!
+0C!
+1B!
+1A!
+1@!
+1?!
+1>!
+1=!
+1<!
+1;!
+1:!
+19!
+18!
+17!
+16!
+15!
+14!
+13!
+0q!
+0y
+0|
+0s
+0q
+0w
+0x
+0?
+1F
+0r
+1D
+1G
+b1 H
+#50000
+1.
+1Q
+#51000
+0c
+b11111111 _
+1}!
+0>
+1:
+19
+18
+17
+16
+15
+14
+13
+#100000
+0.
+0Q

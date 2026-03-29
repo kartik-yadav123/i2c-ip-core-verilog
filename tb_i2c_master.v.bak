@@ -1,0 +1,143 @@
+`timescale 1ns/1ps
+
+module tb_i2c_master;
+
+    // ---------------- Wishbone ----------------
+    reg        wb_clk_i;
+    reg        wb_rst_i;
+    reg        arst_i;
+    reg  [2:0] wb_adr_i;
+    reg  [7:0] wb_dat_i;
+    wire [7:0] wb_dat_o;
+    reg        wb_we_i;
+    reg        wb_stb_i;
+    reg        wb_cyc_i;
+    wire       wb_ack_o;
+
+    // ---------------- I2C Lines (Open Drain) ----------------
+    wire scl_pad_o;
+    wire scl_padoen_o;
+    wire sda_pad_o;
+    wire sda_padoen_o;
+
+    // pull-up model
+    tri1 scl_wire;
+    tri1 sda_wire;
+
+    // Master drive
+    assign scl_wire = (scl_padoen_o == 0) ? scl_pad_o : 1'bz;
+    assign sda_wire = (sda_padoen_o == 0) ? sda_pad_o : 1'bz;
+
+    // Slave ACK (pull SDA low)
+    reg sda_slave_drive;
+    assign sda_wire = (sda_slave_drive) ? 1'b0 : 1'bz;
+
+    // Connect back to DUT
+    wire scl_pad_i = scl_wire;
+    wire sda_pad_i = sda_wire;
+
+    // ---------------- DUT ----------------
+    i2c_master_top dut (
+        .wb_clk_i(wb_clk_i),
+        .wb_rst_i(wb_rst_i),
+        .arst_i(arst_i),
+        .wb_adr_i(wb_adr_i),
+        .wb_dat_i(wb_dat_i),
+        .wb_dat_o(wb_dat_o),
+        .wb_we_i(wb_we_i),
+        .wb_stb_i(wb_stb_i),
+        .wb_cyc_i(wb_cyc_i),
+        .wb_ack_o(wb_ack_o),
+        .wb_inta_o(),
+
+        .scl_pad_i(scl_pad_i),
+        .scl_pad_o(scl_pad_o),
+        .scl_padoen_o(scl_padoen_o),
+        .sda_pad_i(sda_pad_i),
+        .sda_pad_o(sda_pad_o),
+        .sda_padoen_o(sda_padoen_o)
+    );
+
+    // ---------------- Clock ----------------
+    initial wb_clk_i = 0;
+    always #10 wb_clk_i = ~wb_clk_i;  // 50MHz
+
+    // ---------------- Wishbone Tasks ----------------
+    task wb_write(input [2:0] addr, input [7:0] data);
+    begin
+        @(posedge wb_clk_i);
+        wb_adr_i = addr;
+        wb_dat_i = data;
+        wb_we_i  = 1;
+        wb_stb_i = 1;
+        wb_cyc_i = 1;
+        wait (wb_ack_o);
+        @(posedge wb_clk_i);
+        wb_stb_i = 0;
+        wb_cyc_i = 0;
+        wb_we_i  = 0;
+    end
+    endtask
+
+    // ---------------- ACK Generator ----------------
+    integer bit_cnt;
+
+    initial begin
+        sda_slave_drive = 0;
+        bit_cnt = 0;
+    end
+
+    always @(posedge scl_wire)
+        bit_cnt = bit_cnt + 1;
+
+    always @(negedge scl_wire) begin
+        if (bit_cnt == 8)
+            sda_slave_drive = 1;   // ACK
+        else if (bit_cnt == 9) begin
+            sda_slave_drive = 0;
+            bit_cnt = 0;
+        end
+    end
+
+    // ---------------- Dump ----------------
+    initial begin
+        $dumpfile("i2c.vcd");
+        $dumpvars(0, tb_i2c_master);
+    end
+
+    // ---------------- Test ----------------
+    initial begin
+        // reset
+        arst_i = 0;
+        wb_rst_i = 1;
+        wb_we_i = 0; wb_stb_i = 0; wb_cyc_i = 0;
+
+        repeat(5) @(posedge wb_clk_i);
+        arst_i = 1;
+        wb_rst_i = 0;
+
+        // prescaler (FAST)
+        wb_write(3'd0, 8'd2);
+        wb_write(3'd1, 8'd0);
+
+        // enable core
+        wb_write(3'd2, 8'h80);
+
+        // ---------------- WRITE ----------------
+        $display("START WRITE");
+
+        wb_write(3'd3, 8'hA0);     // address
+        wb_write(3'd4, 8'h90);     // START + WRITE
+
+        repeat(200) @(posedge wb_clk_i);
+
+        wb_write(3'd3, 8'hA5);     // data
+        wb_write(3'd4, 8'h50);     // WRITE + STOP
+
+        repeat(500) @(posedge wb_clk_i);
+
+        $display("DONE");
+        $finish;
+    end
+
+endmodule
